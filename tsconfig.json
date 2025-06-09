@@ -6,8 +6,10 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "erasableSyntaxOnly": false,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@services/*": ["src/services/*"],
     }
   }
 }
