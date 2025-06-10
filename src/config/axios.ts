@@ -9,7 +9,7 @@ let failedQueue: {
 }[] = [];
 
 const axiosHttp = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: import.meta.env.VITE_MEZON_APP_BACKEND_URL,
 });
 
 const processQueue = (error: unknown, token = null) => {
@@ -69,7 +69,7 @@ axiosHttp.interceptors.response.use(
     } else if (error.response?.status === 403) {
       window.location.href = '/forbidden';
     } else if (error.response?.status === 404) {
-      window.location.href = '/404';
+      // window.location.href = '/404';
     }
 
     return Promise.reject(error);

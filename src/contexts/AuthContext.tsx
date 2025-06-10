@@ -9,10 +9,10 @@ import { jwtDecode } from 'jwt-decode';
 
 type UserDecodedInfo =
   | {
-      id: string;
-      email: string;
-      userName: string;
-    }
+    id: string;
+    email: string;
+    userName: string;
+  }
   | undefined;
 
 type AuthContextType = {
@@ -30,8 +30,8 @@ type AuthProviderProps = {
 const AuthContext = createContext<AuthContextType>({
   token: '',
   user: undefined,
-  login: () => {},
-  logout: () => {},
+  login: () => { },
+  logout: () => { },
   isAuthenticated: false,
 });
 

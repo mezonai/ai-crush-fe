@@ -9,6 +9,7 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { token } = useAuth();
+
   if (!token) {
     // user is not authenticated
     return <Navigate to="/login" />;
@@ -17,3 +18,4 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 };
 
 export default ProtectedRoute;
+

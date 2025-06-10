@@ -7,3 +7,7 @@ export type GetUserInformationResponse = {
     gender: string;
     createdAt: ISODateString;
 }
+
+export type CheckUserExistResponse = {
+    isExist: boolean;
+}
