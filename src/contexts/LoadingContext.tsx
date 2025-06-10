@@ -1,6 +1,6 @@
 import { ClipLoader } from 'react-spinners';
 import { cn } from '../lib/utils';
-import React, { createContext, type ReactNode, useContext, useRef, useState } from 'react';
+import React, { createContext, type ReactNode, useRef, useState } from 'react';
 
 type LoadingData = {
   isOpenLoading: boolean;
