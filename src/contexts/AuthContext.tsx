@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import { TOKENS } from '../consts/common';
 
 type UserDecodedInfo =
   | {
@@ -35,10 +36,12 @@ const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
 });
 
+const ACCESS_TOKEN_KEY = TOKENS.ACCESS_TOKEN;
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState(() => localStorage.getItem('token'));
+  const [token, setToken] = useState(() => localStorage.getItem(ACCESS_TOKEN_KEY));
   const [user, setUser] = useState<UserDecodedInfo>(() => {
-    const savedToken = localStorage.getItem('token');
+    const savedToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     return savedToken ? jwtDecode(savedToken) : undefined;
   });
 
@@ -46,10 +49,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     if (token) {
       setUser(jwtDecode(token));
-      localStorage.setItem('token', token);
+      localStorage.setItem(ACCESS_TOKEN_KEY, token);
     } else {
       setUser(undefined);
-      localStorage.removeItem('token');
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
     }
   }, [token]);
 

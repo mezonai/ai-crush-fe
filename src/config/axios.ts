@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 import { logout } from '../services/auth';
 import { toast } from 'react-toastify';
 
@@ -25,7 +25,12 @@ const processQueue = (error: unknown, token = null) => {
 };
 
 axiosHttp.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    if (response?.data && typeof response.data === 'object' && 'data' in response.data) {
+      return response.data;
+    }
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
 
