@@ -1,6 +1,9 @@
 import {createBrowserRouter, Outlet} from 'react-router-dom';
 import Welcome from '../pages/Welcome';
 import ProtectedRoute from '../components/protectedRoute';
+import LoginPage from '../pages/Login';
+import ErrorPage from '../pages/Error';
+import InitPage from '../pages/Initial';
 import GameIntro from "../pages/GameIntro";
 
 const Root: React.FC = () => {
@@ -11,13 +14,18 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <Root/>,
+    errorElement: <ErrorPage/>,
     children: [
       {
         path: '/',
         element: (
-          <ProtectedRoute>
-            <Welcome/>
-          </ProtectedRoute>
+          <InitPage/>
+        ),
+      },
+      {
+        path: '/login',
+        element: (
+          <LoginPage/>
         ),
       },
       {
@@ -27,6 +35,10 @@ const router = createBrowserRouter([
             <Welcome/>
           </ProtectedRoute>
         ),
+      },
+      {
+        path: '*',
+        element: <ErrorPage/>,
       },
       {
         path: '/game-intro',

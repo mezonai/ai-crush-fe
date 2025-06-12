@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { type AxiosResponse } from 'axios';
 import { logout } from '../services/auth';
 import { toast } from 'react-toastify';
 
@@ -9,7 +9,7 @@ let failedQueue: {
 }[] = [];
 
 const axiosHttp = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: import.meta.env.VITE_MEZON_APP_BACKEND_URL,
 });
 
 const processQueue = (error: unknown, token = null) => {
@@ -24,8 +24,28 @@ const processQueue = (error: unknown, token = null) => {
   failedQueue = [];
 };
 
+axiosHttp.interceptors.request.use(
+  (config) => {
+    if ((config as any).skipAuth) {
+      return config;
+    }
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers = config.headers || {};
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 axiosHttp.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    if (response?.data && typeof response.data === 'object' && 'data' in response.data) {
+      return response.data;
+    }
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
 
@@ -45,16 +65,24 @@ axiosHttp.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await axios.post(
+        const refreshToken = localStorage.getItem('refreshToken');
+        const config = {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          }
+        } as any;
+        (config as any).skipAuth = true;
+        const { data } = await axiosHttp.post(
           '/auth/refresh-token',
           {},
-          { withCredentials: true }
+          config
         );
-        const newToken = data.accessToken;
-
-        localStorage.setItem('accessToken', newToken);
-        axiosHttp.defaults.headers['Authorization'] = 'Bearer ' + newToken;
-        processQueue(null, newToken);
+        const newAccessToken = data.accessToken;
+        const newRefreshToken = data.refreshToken
+        localStorage.setItem('accessToken', newAccessToken);
+        localStorage.setItem('refreshToken', newRefreshToken)
+        axiosHttp.defaults.headers['Authorization'] = 'Bearer ' + newAccessToken;
+        processQueue(null, newAccessToken);
 
         return axiosHttp(originalRequest);
       } catch (err) {
@@ -69,7 +97,7 @@ axiosHttp.interceptors.response.use(
     } else if (error.response?.status === 403) {
       window.location.href = '/forbidden';
     } else if (error.response?.status === 404) {
-      window.location.href = '/404';
+      // window.location.href = '/404';
     }
 
     return Promise.reject(error);
