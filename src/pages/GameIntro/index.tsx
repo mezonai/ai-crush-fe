@@ -35,17 +35,25 @@ export default function GameIntro() {
 
   return (
     <BaseLayout>
-      <div className="text-2xl font-mono text-[#8C0F3E] mb-2 font-bold text-left w-[90%]">Giới thiệu luật chơi</div>
-      <StepIndicator current={stepIndex + 1} total={steps.length}/>
+      <div className="flex flex-col h-screen">
+        <div className={'w-full mt-10'}>
+          <div className="text-2xl font-mono text-[#8C0F3E] mb-2 font-bold text-left">Giới thiệu luật chơi</div>
+          <StepIndicator current={stepIndex + 1} total={steps.length}/>
+        </div>
 
-      <div className="bg-white bg-opacity-30 rounded-3xl shadow-lg p-6 mt-4 w-full max-w-[90%] min-h-[80%]">
-        {steps[stepIndex]}
-      </div>
-      <div className="mt-10 mb-4 flex justify-center gap-4 w-full">
-        <Button onClick={handleNext}
-                className={'bg-pink-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-pink-700 transition w-[90%]'}>
-          {stepIndex === steps.length - 1 ? "Bắt đầu chơi" : "Tiếp tục"}<img src={arrowRight} alt="Logo" className=""/>
-        </Button>
+        <div className="flex-grow">
+          <div className="bg-white bg-opacity-30 rounded-2xl shadow-lg p-6 mt-4 w-full h-full border border-solid border-white border-2">
+            {steps[stepIndex]}
+          </div>
+        </div>
+
+        <div className="mt-10 mb-4 flex justify-center gap-4 w-full">
+          <Button onClick={handleNext}
+                  className={'bg-pink-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-pink-700 transition'}>
+            {stepIndex === steps.length - 1 ? "Bắt đầu chơi" : "Tiếp tục"}
+            <img src={arrowRight} alt="Logo" className=""/>
+          </Button>
+        </div>
       </div>
     </BaseLayout>
   );

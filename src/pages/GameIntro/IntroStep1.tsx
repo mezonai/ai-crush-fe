@@ -3,7 +3,8 @@ import GameModeCard from "./components/gameMode/GameModeCard.tsx";
 export default function IntroStep1() {
   return (
     <div className="">
-      <h3 className="text-center text-xl font-semibold mb-8 mt-2">Chế độ chơi</h3>
+      <div className="text-left text-xl font-bold mb-4 mt-2">Chế độ chơi</div>
+      <div className="text-left lg font-semibold mb-8 text-gray-600">người chơi sẽ chọn chế độ chơi</div>
 
       <div className="space-y-8">
         <GameModeCard

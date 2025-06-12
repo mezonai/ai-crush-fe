@@ -13,7 +13,7 @@ export default function IntroStep3() {
   return (
     <div className="text-[#535862]">
       <h3 className="text-xl font-bold mb-4 text-left">Cách chơi</h3>
-      <ul className="space-y-4">
+      <ul className="flex flex-col space-y-4 gap-4">
         {HOW_TO_PLAY_LIST.map((item, idx) => (
           <li key={idx} className="flex items-start gap-3">
             <img src={heart} alt={''}/>
