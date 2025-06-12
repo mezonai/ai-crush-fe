@@ -23,4 +23,18 @@ export type GetUserFavoritesResponse = {
         id: number;
         value: string;
     }[];
+  email: string;
+  tokenBalance: TokenBalance;
+  userName: string;
+  gender: string;
+  createdAt: ISODateString;
+}
+
+export type CheckUserExistResponse = {
+  isExist: boolean;
+}
+
+export type LoginMezonResponse = {
+  accessToken: string;
+  refreshToken: string;
 }
