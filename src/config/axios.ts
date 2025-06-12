@@ -41,9 +41,6 @@ axiosHttp.interceptors.request.use(
 
 axiosHttp.interceptors.response.use(
   (response) => {
-    if (response?.data && typeof response.data === 'object' && 'data' in response.data) {
-      return response.data;
-    }
     return response;
   },
   async (error) => {

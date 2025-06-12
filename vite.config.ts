@@ -1,16 +1,11 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import * as path from "path"
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tsConfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tsConfigPaths()],
   server: {
-    allowedHosts: ['cb60-14-176-232-186.ngrok-free.app'],
+    allowedHosts: ['351b-14-176-232-186.ngrok-free.app'],
   },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
-    },
-  },
-})
+});

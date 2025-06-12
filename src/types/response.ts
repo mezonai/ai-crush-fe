@@ -1,6 +1,25 @@
 import type { ISODateString, TokenBalance } from "./common";
 
-export type GetUserInformationResponse = {
+type AppError = {
+  message: string;
+  code?: string;
+};
+
+export type ResultResponse<T = null> = {
+  data?: T;
+  error?: AppError;
+}
+
+export type CreateUserResponseDto = {
+    accessToken: string;
+    refreshToken: string;
+}
+
+export type GetUserFavoritesResponse = {
+    favorites: {
+        id: number;
+        value: string;
+    }[];
   email: string;
   tokenBalance: TokenBalance;
   userName: string;

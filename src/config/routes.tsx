@@ -1,9 +1,11 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
-import Welcome from '../pages/Welcome';
-import ProtectedRoute from '../components/protectedRoute';
+import Welcome from '@pages/Welcome';
+import ReisgerPage from '@pages/Register';
+import ProtectedRoute from '@components/protectedRoute';
 import LoginPage from '../pages/Login';
 import ErrorPage from '../pages/Error';
 import InitPage from '../pages/Initial';
+import Home from '@/pages/Home';
 
 const Root: React.FC = () => {
   return <Outlet />;
@@ -29,11 +31,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/welcome',
-        element: (
-          <ProtectedRoute>
-            <Welcome />
-          </ProtectedRoute>
-        ),
+        element: <Welcome />,
+      },
+      {
+        path: '/register',
+        element: <ReisgerPage />,
+      },
+      {
+        path: '/home',
+        element: <Home />,
       },
       {
         path: '*',
