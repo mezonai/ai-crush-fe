@@ -1,21 +1,22 @@
-import { createBrowserRouter, Outlet } from 'react-router-dom';
+import {createBrowserRouter, Outlet} from 'react-router-dom';
 import Welcome from '../pages/Welcome';
 import ProtectedRoute from '../components/protectedRoute';
+import GameIntro from "../pages/GameIntro";
 
 const Root: React.FC = () => {
-  return <Outlet />;
+  return <Outlet/>;
 };
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: <Root/>,
     children: [
       {
         path: '/',
         element: (
           <ProtectedRoute>
-            <Welcome />
+            <Welcome/>
           </ProtectedRoute>
         ),
       },
@@ -23,8 +24,14 @@ const router = createBrowserRouter([
         path: '/welcome',
         element: (
           <ProtectedRoute>
-            <Welcome />
+            <Welcome/>
           </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/game-intro',
+        element: (
+          <GameIntro/>
         ),
       },
     ],
