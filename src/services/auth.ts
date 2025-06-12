@@ -16,35 +16,42 @@ const initAuth = () => {
   const { token, login } = useAuth();
   const navigate = useNavigate();
 
-  const userHashInforEventHandler = async (_type: string, isUserExisted: boolean, data?: IMezonAppUserHashInfo) => {
+  const userHashInforEventHandler = async (_type: string, isUserExisted: boolean, data?: IMezonAppUserHashInfo, appData?: IMezonAppUserInfo) => {
     if (data) {
       const webAppData = data.message.web_app_data;
       if (isUserExisted) {
         const { data: jwt } = await loginMezon({ web_app_data: webAppData });
-        login(jwt);
-        navigate("/welcome");
-
+        if (jwt) {
+          login(jwt);
+          navigate("/welcome");
+        }
       }
       else {
         // call API to create new user with webAppData and login
-        navigate("/welcome?isNew=true");
+        const queryParams = new URLSearchParams();
+        queryParams.append("webAppData", webAppData);
+        queryParams.append("email", appData?.email || "");
+        queryParams.append("avatarUrl", appData?.user.avatar_url || "");
+        queryParams.append("identityId", appData?.user.id || "");
+        navigate(`/welcome?isNew=true&${queryParams.toString()}`);
       }
     }
   }
 
-  const userInfoEventHandler = async (_type: string, data?: IMezonAppUserInfo) => {
-    if (!data) {
+  const userInfoEventHandler = async (_type: string, appData?: IMezonAppUserInfo) => {
+    if (!appData) {
       navigate("/login");
       return;
     }
     try {
-      const userId = data.user?.id;
+      const userId = appData.user?.id;
       if (!userId) throw new Error("No userId");
 
-      const isUserExisted: boolean = await isUserExists(userId);
+      const isUserExisted: boolean = await isUserExists(userId) || false;
       window.Mezon.WebView?.onEvent<IMezonAppUserHashInfo>(
         MezonAppEvent.UserHashInfo, (type: string, data?: IMezonAppUserHashInfo) => {
-          userHashInforEventHandler(type, isUserExisted, data);
+          console.log('appDataappData', appData);
+          userHashInforEventHandler(type, isUserExisted, data, appData);
         }
       )
     } catch (error) {

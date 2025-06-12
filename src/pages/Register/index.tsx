@@ -4,17 +4,17 @@ import RootLayout from '@/layouts/Root';
 import { useSearchParams } from 'react-router-dom';
 import type { RegisterFormInput } from './forms/schema';
 import { createUser, getUserFavorites } from '@/services/user';
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router';
+import { useAuth } from '@/contexts/AuthContext';
 
 const RegisterPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const avatarUrl =
-    searchParams.get('avatarUrl') ||
-    'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg';
-  const email = searchParams.get('email') || 'tuan.vuthanh@ncc.asia';
-  const identityId = searchParams.get('identityId') || '12324324234';
-  const webAppData = searchParams.get('webAppData') || 'test';
+  const { login } = useAuth();
+  const avatarUrl = searchParams.get('avatarUrl') || '';
+  const email = searchParams.get('email') || '';
+  const identityId = searchParams.get('identityId') || '';
+  const webAppData = searchParams.get('webAppData') || '';
 
   const [favorites, setFavorites] = useState<
     {
@@ -41,12 +41,19 @@ const RegisterPage: React.FC = () => {
 
   const onSubmit = async (formData: RegisterFormInput) => {
     try {
-      createUser({
+      const result = await createUser({
         ...formData,
         age: Number(formData.age),
         favorites: JSON.stringify(formData.favorites),
+        // avatarUrl: avatarUrl.replace(/undefined/g, '####'),
       });
-      navigate('/home');
+      if (result.data) {
+        login({
+          accessToken: result.data.accessToken,
+          refreshToken: result.data.refreshToken,
+        });
+        navigate('/home');
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
     }

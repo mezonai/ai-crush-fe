@@ -10,12 +10,9 @@ export type ResultResponse<T = null> = {
   error?: AppError;
 }
 
-export type GetUserInformationResponse = {
-    email: string;
-    tokenBalance: TokenBalance;
-    userName: string;
-    gender: string;
-    createdAt: ISODateString;
+export type CreateUserResponseDto = {
+    accessToken: string;
+    refreshToken: string;
 }
 
 export type GetUserFavoritesResponse = {

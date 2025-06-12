@@ -5,6 +5,7 @@ import ProtectedRoute from '@components/protectedRoute';
 import LoginPage from '../pages/Login';
 import ErrorPage from '../pages/Error';
 import InitPage from '../pages/Initial';
+import Home from '@/pages/Home';
 
 const Root: React.FC = () => {
   return <Outlet />;
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <ReisgerPage />,
+      },
+      {
+        path: '/home',
+        element: <Home />,
       },
       {
         path: '*',

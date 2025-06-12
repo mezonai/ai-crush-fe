@@ -1,30 +1,28 @@
-import type { AxiosResponse } from 'axios';
 import axiosHttp from '../config/axios';
 import type {
   GetUserFavoritesResponse,
   ResultResponse,
   CheckUserExistResponse,
-  GetUserInformationResponse,
+  CreateUserResponseDto,
   LoginMezonResponse,
 } from '../types/response';
 import type { CreateUserRequest, LoginMezonRequest } from '@/types/request';
 
-const getUsersDetail = async (
-  userId: string
-): Promise<AxiosResponse<GetUserInformationResponse>> => {
-  return await axiosHttp.get<GetUserInformationResponse>(`/user/${userId}`);
-};
 
 const checkUserExists = async (
   userId: string
-): Promise<AxiosResponse<CheckUserExistResponse>> => {
-  return await axiosHttp.get<CheckUserExistResponse>(`/user/exist/${userId}`);
+): Promise<ResultResponse<CheckUserExistResponse>> => {
+  return (
+    await axiosHttp.get<ResultResponse<CheckUserExistResponse>>(
+      `/user/exist/${userId}`
+    )
+  ).data;
 };
 
-const isUserExists = async (userId: string): Promise<boolean> => {
+const isUserExists = async (userId: string): Promise<boolean | undefined> => {
   try {
     const response = await checkUserExists(userId);
-    return response.data.isExist;
+    return response.data?.isExist;
   } catch (error) {
     return false;
   }
@@ -32,8 +30,13 @@ const isUserExists = async (userId: string): Promise<boolean> => {
 
 const loginMezon = async (
   data: LoginMezonRequest
-): Promise<AxiosResponse<LoginMezonResponse>> => {
-  return await axiosHttp.post<LoginMezonResponse>(`/auth/login-mezon`, data);
+): Promise<ResultResponse<LoginMezonResponse>> => {
+  return (
+    await axiosHttp.post<ResultResponse<LoginMezonResponse>>(
+      `/auth/login-mezon`,
+      data
+    )
+  ).data;
 };
 
 const getUserFavorites = async (): Promise<
@@ -48,15 +51,14 @@ const getUserFavorites = async (): Promise<
 
 const createUser = async (
   createUserRequest: CreateUserRequest
-): Promise<AxiosResponse<GetUserInformationResponse>> => {
-  return await axiosHttp.post<GetUserInformationResponse>(
+): Promise<ResultResponse<CreateUserResponseDto>> => {
+  return (await axiosHttp.post<ResultResponse<CreateUserResponseDto>>(
     `/users`,
     createUserRequest
-  );
+  )).data;
 };
 
 export {
-  getUsersDetail,
   getUserFavorites,
   createUser,
   isUserExists,
