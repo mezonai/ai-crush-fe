@@ -7,6 +7,7 @@ import {
 } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { TOKENS } from '../consts/common';
+import type { LoginMezonResponse } from '../types/response';
 
 type UserDecodedInfo =
   | {
@@ -18,8 +19,8 @@ type UserDecodedInfo =
 
 type AuthContextType = {
   token: string | null;
-  user: UserDecodedInfo; // Replace 'any' with your user type
-  login: (jwt: string) => void;
+  user: UserDecodedInfo;
+  login: (tokens: { accessToken: string; refreshToken: string }) => void;
   logout: () => void;
   isAuthenticated: boolean;
 };
@@ -39,7 +40,8 @@ const AuthContext = createContext<AuthContextType>({
 const ACCESS_TOKEN_KEY = TOKENS.ACCESS_TOKEN;
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState(() => localStorage.getItem(ACCESS_TOKEN_KEY));
+  const [token, setToken] = useState(() => localStorage.getItem(TOKENS.ACCESS_TOKEN));
+  const [refreshToken, setRefreshToken] = useState(() => localStorage.getItem(TOKENS.REFRESH_TOKEN));
   const [user, setUser] = useState<UserDecodedInfo>(() => {
     const savedToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     return savedToken ? jwtDecode(savedToken) : undefined;
@@ -56,12 +58,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, [token]);
 
-  const login = (jwt: string) => {
-    setToken(jwt);
+  useEffect(() => {
+    if (refreshToken) {
+      localStorage.setItem(TOKENS.REFRESH_TOKEN, refreshToken);
+    } else {
+      localStorage.removeItem(TOKENS.REFRESH_TOKEN);
+    }
+  }, [refreshToken]);
+
+  const login = ({ accessToken, refreshToken }: LoginMezonResponse) => {
+    setToken(accessToken);
+    setRefreshToken(refreshToken);
   };
 
   const logout = () => {
     setToken(null);
+    setRefreshToken(null);
   };
 
   const isAuthenticated = !!token;

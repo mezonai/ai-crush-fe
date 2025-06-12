@@ -2,52 +2,57 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useEffect } from "react";
 import type { IMezonAppUserHashInfo, IMezonAppUserInfo } from "../types/common";
-import { isUserExists } from "./user";
+import { isUserExists, loginMezon } from "./user";
 import { MezonAppEvent, MezonWebViewEvent } from "../mezon-web-sdk/webview/types.d";
+import { TOKENS } from "../consts/common";
 
 const logout = () => {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-  window.location.href = "/auth/basic-authentication";
+  localStorage.removeItem(TOKENS.ACCESS_TOKEN);
+  localStorage.removeItem(TOKENS.REFRESH_TOKEN);
+  window.location.href = "/login";
 }
 
 const initAuth = () => {
-  const { token } = useAuth();
+  const { token, login } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleUserInfo = async (_type: string, data?: IMezonAppUserInfo) => {
-      if (!data) {
-        navigate("/login");
-        return;
+  const userHashInforEventHandler = async (_type: string, isUserExisted: boolean, data?: IMezonAppUserHashInfo) => {
+    if (data) {
+      const webAppData = data.message.web_app_data;
+      if (isUserExisted) {
+        const { data: jwt } = await loginMezon({ web_app_data: webAppData });
+        login(jwt);
+        navigate("/welcome");
+
       }
-      try {
-        const userId = data.user?.id;
-        if (!userId) throw new Error("No userId");
+      else {
+        // call API to create new user with webAppData and login
+        navigate("/welcome?isNew=true");
+      }
+    }
+  }
 
-        const existed: boolean = await isUserExists(userId);
-        if (existed) {
-          window.Mezon.WebView?.onEvent<IMezonAppUserHashInfo>(
-            MezonAppEvent.UserHashInfo,
-            async (_type, data) => {
-              if (data) {
-                // TODO: create logic login with user hash
-                console.log("User hash info received:", data.message.web_app_data);
-              }
+  const userInfoEventHandler = async (_type: string, data?: IMezonAppUserInfo) => {
+    if (!data) {
+      navigate("/login");
+      return;
+    }
+    try {
+      const userId = data.user?.id;
+      if (!userId) throw new Error("No userId");
 
-              return;
-            }
-          )
-          navigate("/welcome");
-        } else {
-          // call API to create new user and return tokens
-          navigate("/welcome");
+      const isUserExisted: boolean = await isUserExists(userId);
+      window.Mezon.WebView?.onEvent<IMezonAppUserHashInfo>(
+        MezonAppEvent.UserHashInfo, (type: string, data?: IMezonAppUserHashInfo) => {
+          userHashInforEventHandler(type, isUserExisted, data);
         }
-      } catch (error) {
-        navigate("/login");
-      }
-    };
+      )
+    } catch (error) {
+      navigate("/login");
+    }
+  };
 
+  useEffect(() => {
     if (token) {
       navigate("/welcome");
       return;
@@ -59,7 +64,7 @@ const initAuth = () => {
       window.Mezon.WebView.onEvent(MezonAppEvent.Pong, () => {
         window.Mezon.WebView?.onEvent<IMezonAppUserInfo>(
           MezonAppEvent.CurrentUserInfo,
-          handleUserInfo
+          userInfoEventHandler
         );
         window.Mezon.WebView?.postEvent(MezonWebViewEvent.SendBotID, {
           appId: import.meta.env.VITE_MEZON_APP_ID
@@ -68,6 +73,10 @@ const initAuth = () => {
       });
     }
   }, [token, navigate]);
+
+  return () => {
+    window.Mezon.WebView?.offEvent(MezonAppEvent.CurrentUserInfo, userInfoEventHandler);
+  }
 }
 
 export {

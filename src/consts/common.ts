@@ -5,8 +5,8 @@ const GENDER = {
 } as const;
 
 const TOKENS = {
-  ACCESS_TOKEN: 'aicrush-access-token',
-  REFRESH_TOKEN: 'aicrush-refresh-token',
+  ACCESS_TOKEN: 'accessToken',
+  REFRESH_TOKEN: 'refreshToken',
 } as const;
 
 export {
