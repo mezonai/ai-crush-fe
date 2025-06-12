@@ -24,6 +24,21 @@ const processQueue = (error: unknown, token = null) => {
   failedQueue = [];
 };
 
+axiosHttp.interceptors.request.use(
+  (config) => {
+    if ((config as any).skipAuth) {
+      return config;
+    }
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      config.headers = config.headers || {};
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 axiosHttp.interceptors.response.use(
   (response) => {
     if (response?.data && typeof response.data === 'object' && 'data' in response.data) {
@@ -50,16 +65,24 @@ axiosHttp.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await axios.post(
+        const refreshToken = localStorage.getItem('refreshToken');
+        const config = {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          }
+        } as any;
+        (config as any).skipAuth = true;
+        const { data } = await axiosHttp.post(
           '/auth/refresh-token',
           {},
-          { withCredentials: true }
+          config
         );
-        const newToken = data.accessToken;
-
-        localStorage.setItem('accessToken', newToken);
-        axiosHttp.defaults.headers['Authorization'] = 'Bearer ' + newToken;
-        processQueue(null, newToken);
+        const newAccessToken = data.accessToken;
+        const newRefreshToken = data.refreshToken
+        localStorage.setItem('accessToken', newAccessToken);
+        localStorage.setItem('refreshToken', newRefreshToken)
+        axiosHttp.defaults.headers['Authorization'] = 'Bearer ' + newAccessToken;
+        processQueue(null, newAccessToken);
 
         return axiosHttp(originalRequest);
       } catch (err) {
