@@ -10,12 +10,7 @@ function App() {
     <>
       <LoadingProvider>
         <AuthProvider>
-          <ToastContainer
-            position="top-right"
-            hideProgressBar={true}
-            autoClose={3000}
-            closeButton={false}
-          />
+          <ToastContainer position="top-right" hideProgressBar={true} autoClose={3000} closeButton={false} />
           <RouterProvider router={router} />
         </AuthProvider>
       </LoadingProvider>

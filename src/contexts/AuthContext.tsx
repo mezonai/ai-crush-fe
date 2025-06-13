@@ -1,9 +1,4 @@
-import {
-  createContext,
-  useState,
-  useEffect,
-  type ReactNode,
-} from 'react';
+import { createContext, useState, useEffect, type ReactNode } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { TOKENS } from '../consts/common';
 import type { LoginMezonResponse } from '../types/response';
@@ -40,12 +35,8 @@ export const AuthContext = createContext<AuthContextType>({
 const ACCESS_TOKEN_KEY = TOKENS.ACCESS_TOKEN;
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState(() =>
-    localStorage.getItem(TOKENS.ACCESS_TOKEN)
-  );
-  const [refreshToken, setRefreshToken] = useState(() =>
-    localStorage.getItem(TOKENS.REFRESH_TOKEN)
-  );
+  const [token, setToken] = useState(() => localStorage.getItem(TOKENS.ACCESS_TOKEN));
+  const [refreshToken, setRefreshToken] = useState(() => localStorage.getItem(TOKENS.REFRESH_TOKEN));
   const [user, setUser] = useState<UserDecodedInfo>(() => {
     const savedToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     return savedToken ? jwtDecode(savedToken) : undefined;
@@ -91,8 +82,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         login,
         logout,
         isAuthenticated,
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );

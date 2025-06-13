@@ -9,9 +9,7 @@ import { useNavigate } from 'react-router';
 const WelcomePage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const avatarUrl =
-    searchParams.get('avatarUrl') ||
-    '';
+  const avatarUrl = searchParams.get('avatarUrl') || '';
   const email = searchParams.get('email') || '';
   const identityId = searchParams.get('identityId') || '';
   const webAppData = searchParams.get('webAppData') || '';
@@ -19,16 +17,16 @@ const WelcomePage: React.FC = () => {
 
   const handleStartClick = () => {
     if (isNew) {
-       const queryParams = new URLSearchParams();
-        queryParams.append("webAppData", webAppData);
-        queryParams.append("email", email);
-        queryParams.append("avatarUrl", avatarUrl);
-        queryParams.append("identityId", identityId);
-        console.log('2222222222222222222', queryParams.toString());
-     return navigate(`/register?${queryParams.toString()}`);
+      const queryParams = new URLSearchParams();
+      queryParams.append('webAppData', webAppData);
+      queryParams.append('email', email);
+      queryParams.append('avatarUrl', avatarUrl);
+      queryParams.append('identityId', identityId);
+      console.log('2222222222222222222', queryParams.toString());
+      return navigate(`/register?${queryParams.toString()}`);
     }
     return navigate(`/home`);
-  }
+  };
 
   return (
     <RootLayout>
@@ -53,9 +51,7 @@ const WelcomePage: React.FC = () => {
             </Button>
           </Alert>
 
-          <p className="absolute text-[#414651] bottom-[-240px] text-center w-full">
-            Version 1.0
-          </p>
+          <p className="absolute text-[#414651] bottom-[-240px] text-center w-full">Version 1.0</p>
         </div>
       </div>
     </RootLayout>

@@ -6,6 +6,6 @@ const InitPage: React.FC = () => {
   useInitGame();
 
   return null;
-}
+};
 
 export default InitPage;

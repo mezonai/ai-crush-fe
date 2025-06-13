@@ -36,7 +36,7 @@ axiosHttp.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 axiosHttp.interceptors.response.use(
@@ -66,18 +66,14 @@ axiosHttp.interceptors.response.use(
         const config = {
           headers: {
             Authorization: `Bearer ${refreshToken}`,
-          }
+          },
         } as any;
         (config as any).skipAuth = true;
-        const { data } = await axiosHttp.post(
-          '/auth/refresh-token',
-          {},
-          config
-        );
+        const { data } = await axiosHttp.post('/auth/refresh-token', {}, config);
         const newAccessToken = data.accessToken;
-        const newRefreshToken = data.refreshToken
+        const newRefreshToken = data.refreshToken;
         localStorage.setItem('accessToken', newAccessToken);
-        localStorage.setItem('refreshToken', newRefreshToken)
+        localStorage.setItem('refreshToken', newRefreshToken);
         axiosHttp.defaults.headers['Authorization'] = 'Bearer ' + newAccessToken;
         processQueue(null, newAccessToken);
 
@@ -98,7 +94,7 @@ axiosHttp.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosHttp;
