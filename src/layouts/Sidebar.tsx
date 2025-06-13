@@ -1,11 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Sidebar: React.FC = () => {
-    return (
-        <div className="bg-gray-800 text-white text-center p-4">
-            Sidebar
-        </div>
-    )
-}
+  return <div className="bg-gray-800 text-white text-center p-4">Sidebar</div>;
+};
 
 export default Sidebar;

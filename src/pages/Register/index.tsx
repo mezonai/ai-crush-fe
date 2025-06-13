@@ -7,7 +7,6 @@ import {createUser, getUserFavorites} from '@/services/user';
 import {useNavigate} from 'react-router';
 import {useAuth} from '@/hooks/useAuth';
 
-
 const RegisterPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();

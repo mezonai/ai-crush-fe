@@ -1,13 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form';
 import { GENDER } from '@/consts/common';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -54,9 +47,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
     <Form {...form}>
       <form className="w-full h-full" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex flex-col h-full gap-4 pt-[48px]">
-          <h2 className="text-[#8C0F3E] text-2xl font-bold">
-            Thông tin của bạn
-          </h2>
+          <h2 className="text-[#8C0F3E] text-2xl font-bold">Thông tin của bạn</h2>
           <div className="flex justify-center mt-[16px] items-center">
             <Avatar className="w-[96px] h-[96px]">
               <AvatarImage src={userInformation.avatarUrl} />
@@ -87,15 +78,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               name="gender"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-0 pb-0 text-sm font-bold">
-                    Giới tính*
-                  </FormLabel>
+                  <FormLabel className="mb-0 pb-0 text-sm font-bold">Giới tính*</FormLabel>
                   <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      className="flex gap-4"
-                      defaultValue={GENDER.MALE}
-                    >
+                    <RadioGroup onValueChange={field.onChange} className="flex gap-4" defaultValue={GENDER.MALE}>
                       <FormItem className="flex items-center gap-3">
                         <FormControl>
                           <RadioGroupItem value="male" id="1" />
@@ -124,9 +109,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               name="age"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-0 pb-0 text-sm font-bold">
-                    Tuổi
-                  </FormLabel>
+                  <FormLabel className="mb-0 pb-0 text-sm font-bold">Tuổi</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -145,10 +128,8 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               name="favorites"
               render={() => (
                 <FormItem>
-                  <FormLabel className="mb-0 pb-0 text-sm font-bold">
-                    Sở thích
-                  </FormLabel>
-                  <div className='flex flex-row gap-6 flex-wrap'>
+                  <FormLabel className="mb-0 pb-0 text-sm font-bold">Sở thích</FormLabel>
+                  <div className="flex flex-row gap-6 flex-wrap">
                     {userFavorites.map((item) => (
                       <FormField
                         key={item.id}
@@ -156,29 +137,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                         name="favorites"
                         render={({ field }) => {
                           return (
-                            <FormItem
-                              key={item.id}
-                              className="flex flex-row items-center gap-2"
-                            >
+                            <FormItem key={item.id} className="flex flex-row items-center gap-2">
                               <FormControl>
                                 <Checkbox
-                                  checked={field.value
-                                    ?.map((x) => x.id)
-                                    .includes(item.id)}
+                                  checked={field.value?.map((x) => x.id).includes(item.id)}
                                   onCheckedChange={(checked) => {
                                     return checked
                                       ? field.onChange([...field.value, item])
-                                      : field.onChange(
-                                          field.value?.filter(
-                                            (value) => value.id !== item.id
-                                          )
-                                        );
+                                      : field.onChange(field.value?.filter((value) => value.id !== item.id));
                                   }}
                                 />
                               </FormControl>
-                              <FormLabel className="text-sm font-bold !mt-0">
-                                {item.value}
-                              </FormLabel>
+                              <FormLabel className="text-sm font-bold !mt-0">{item.value}</FormLabel>
                             </FormItem>
                           );
                         }}
@@ -195,15 +165,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-0 pb-0 text-sm font-bold">
-                    Mô tả
-                  </FormLabel>
+                  <FormLabel className="mb-0 pb-0 text-sm font-bold">Mô tả</FormLabel>
                   <FormControl>
-                    <Textarea
-                      {...field}
-                      rows={6}
-                      className="bg-white max-w-xl border-[1px] border-[#D5D7DA]"
-                    />
+                    <Textarea {...field} rows={6} className="bg-white max-w-xl border-[1px] border-[#D5D7DA]" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -216,8 +180,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               type="submit"
               size="lg"
               className="w-full rounded-[100px] text-base font-bold"
-              disabled={form.formState.isSubmitting}
-            >
+              disabled={form.formState.isSubmitting}>
               Tiếp tục
               <img src="/icons/continue-icon.svg" />
             </Button>

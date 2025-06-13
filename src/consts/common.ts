@@ -10,7 +10,4 @@ const TOKENS = {
   REFRESH_TOKEN: 'refreshToken',
 } as const;
 
-export {
-  GENDER,
-  TOKENS
-}
+export { GENDER, TOKENS };

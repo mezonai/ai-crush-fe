@@ -1,1 +1,1 @@
-export declare const TRUSTED_TARGET = "https://mezon.ai";
+export declare const TRUSTED_TARGET = 'https://mezon.ai';
