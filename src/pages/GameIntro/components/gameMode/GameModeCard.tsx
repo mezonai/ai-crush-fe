@@ -1,4 +1,4 @@
-import type {ReactNode} from "react";
+import type { ReactNode } from 'react';
 
 interface GameModeCardProps {
   icon: ReactNode;
@@ -6,7 +6,7 @@ interface GameModeCardProps {
   description: string;
 }
 
-export default function GameModeCard({icon, title, description}: GameModeCardProps) {
+export default function GameModeCard({ icon, title, description }: GameModeCardProps) {
   return (
     <div className="bg-white rounded-2xl p-4 shadow-md text-center">
       <div className="text-3xl mb-2">{icon}</div>

@@ -6,7 +6,7 @@ import LoginPage from '@/pages/Login';
 import ErrorPage from '@/pages/Error';
 import InitPage from '@/pages/Initial';
 import Home from '@/pages/Home';
-import GameIntro from "@/pages/GameIntro";
+import GameIntro from '@/pages/GameIntro';
 
 const Root: React.FC = () => {
   return <Outlet />;
@@ -36,20 +36,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/home',
-        element:
-        <ProtectedRoute>
-          <Home />
-        </ProtectedRoute>,
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '*',
-        element: <ErrorPage/>,
+        element: <ErrorPage />,
       },
       {
         path: '/game-intro',
-        element: (
-          <GameIntro/>
-        ),
+        element: <GameIntro />,
       },
     ],
   },

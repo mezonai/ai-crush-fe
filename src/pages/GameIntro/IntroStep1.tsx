@@ -1,4 +1,4 @@
-import GameModeCard from "./components/gameMode/GameModeCard.tsx";
+import GameModeCard from './components/gameMode/GameModeCard.tsx';
 
 export default function IntroStep1() {
   return (
