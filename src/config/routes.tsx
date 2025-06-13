@@ -1,12 +1,12 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import Welcome from '@pages/Welcome';
-import ReisgerPage from '@pages/Register';
-// import ProtectedRoute from '@components/protectedRoute';
-import LoginPage from '../pages/Login';
-import ErrorPage from '../pages/Error';
-import InitPage from '../pages/Initial';
+import RegisterPage from '@pages/Register';
+import ProtectedRoute from '@components/protectedRoute';
+import LoginPage from '@/pages/Login';
+import ErrorPage from '@/pages/Error';
+import InitPage from '@/pages/Initial';
 import Home from '@/pages/Home';
-import GameIntro from "../pages/GameIntro";
+import GameIntro from "@/pages/GameIntro";
 
 const Root: React.FC = () => {
   return <Outlet />;
@@ -36,11 +36,14 @@ const router = createBrowserRouter([
       },
       {
         path: '/register',
-        element: <ReisgerPage />,
+        element: <RegisterPage />,
       },
       {
         path: '/home',
-        element: <Home />,
+        element:
+        <ProtectedRoute>
+          <Home />
+        </ProtectedRoute>,
       },
       {
         path: '*',

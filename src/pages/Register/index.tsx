@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import RegisterForm from './components/RegisterForm';
 import RootLayout from '@/layouts/Root';
-import { useSearchParams } from 'react-router-dom';
-import type { RegisterFormInput } from './forms/schema';
-import { createUser, getUserFavorites } from '@/services/user';
-import { useNavigate } from 'react-router';
-import { useAuth } from '@/hooks/useAuth';
+import {useSearchParams} from 'react-router-dom';
+import type {RegisterFormInput} from './forms/schema';
+import {createUser, getUserFavorites} from '@/services/user';
+import {useNavigate} from 'react-router';
+import {useAuth} from '@/hooks/useAuth';
 
 
 const RegisterPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const {login} = useAuth();
   const avatarUrl = searchParams.get('avatarUrl') || '';
   const email = searchParams.get('email') || '';
   const identityId = searchParams.get('identityId') || '';
@@ -52,7 +52,7 @@ const RegisterPage: React.FC = () => {
           accessToken: result.data.accessToken,
           refreshToken: result.data.refreshToken,
         });
-        navigate('/home');
+        navigate('/game-intro');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -64,7 +64,7 @@ const RegisterPage: React.FC = () => {
         <div className="w-full h-full">
           <RegisterForm
             onSubmit={onSubmit}
-            userInformation={{ avatarUrl, email, identityId, webAppData }}
+            userInformation={{avatarUrl, email, identityId, webAppData}}
             userFavorites={favorites}
           />
         </div>

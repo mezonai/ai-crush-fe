@@ -1,7 +1,7 @@
 import BaseLayout from "../../layouts/BaseLayout.tsx";
-import StepIndicator from "../../components/ui/StepIndicator.tsx";
-import {Button} from "../../components/ui/button.tsx";
-import arrowRight from '../../assets/icons/arrow_right.svg';
+import StepIndicator from "@/components/ui/StepIndicator.tsx";
+import {Button} from "@components/ui/button.tsx";
+import arrowRight from '@/assets/icons/arrow_right.svg';
 
 import IntroStep1 from "./IntroStep1";
 import IntroStep2 from "./IntroStep2";
