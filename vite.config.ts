@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react'
 import * as path from 'path'
 
 export default defineConfig(({mode}) => {
-  // Load biến môi trường tương ứng với `mode`
   const env = loadEnv(mode, process.cwd());
 
   return {

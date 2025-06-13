@@ -1,5 +1,5 @@
-import axios, { type AxiosResponse } from 'axios';
-import { logout } from '../services/auth';
+import { logout } from '@/services/auth';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 
 let isRefreshing = false;
@@ -41,9 +41,6 @@ axiosHttp.interceptors.request.use(
 
 axiosHttp.interceptors.response.use(
   (response) => {
-    if (response?.data && typeof response.data === 'object' && 'data' in response.data) {
-      return response.data;
-    }
     return response;
   },
   async (error) => {

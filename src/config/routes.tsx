@@ -1,40 +1,46 @@
-import {createBrowserRouter, Outlet} from 'react-router-dom';
-import Welcome from '../pages/Welcome';
-import ProtectedRoute from '../components/protectedRoute';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
+import Welcome from '@pages/Welcome';
+import ReisgerPage from '@pages/Register';
+// import ProtectedRoute from '@components/protectedRoute';
 import LoginPage from '../pages/Login';
 import ErrorPage from '../pages/Error';
 import InitPage from '../pages/Initial';
+import Home from '@/pages/Home';
 import GameIntro from "../pages/GameIntro";
 
 const Root: React.FC = () => {
-  return <Outlet/>;
+  return <Outlet />;
 };
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root/>,
-    errorElement: <ErrorPage/>,
+    element: <Root />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: '/',
         element: (
-          <InitPage/>
+          <InitPage />
         ),
       },
       {
         path: '/login',
         element: (
-          <LoginPage/>
+          <LoginPage />
         ),
       },
       {
         path: '/welcome',
-        element: (
-          <ProtectedRoute>
-            <Welcome/>
-          </ProtectedRoute>
-        ),
+        element: <Welcome />,
+      },
+      {
+        path: '/register',
+        element: <ReisgerPage />,
+      },
+      {
+        path: '/home',
+        element: <Home />,
       },
       {
         path: '*',
