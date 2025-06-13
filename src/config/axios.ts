@@ -69,9 +69,8 @@ axiosHttp.interceptors.response.use(
           },
         } as any;
         (config as any).skipAuth = true;
-        const { data } = await axiosHttp.post('/auth/refresh-token', {}, config);
-        const newAccessToken = data.accessToken;
-        const newRefreshToken = data.refreshToken;
+        const response = await axiosHttp.post('/auth/refresh-token', {}, config);
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data;
         localStorage.setItem('accessToken', newAccessToken);
         localStorage.setItem('refreshToken', newRefreshToken);
         axiosHttp.defaults.headers['Authorization'] = 'Bearer ' + newAccessToken;
