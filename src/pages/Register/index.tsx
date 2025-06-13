@@ -5,7 +5,8 @@ import { useSearchParams } from 'react-router-dom';
 import type { RegisterFormInput } from './forms/schema';
 import { createUser, getUserFavorites } from '@/services/user';
 import { useNavigate } from 'react-router';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
+
 
 const RegisterPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -45,7 +46,6 @@ const RegisterPage: React.FC = () => {
         ...formData,
         age: Number(formData.age),
         favorites: JSON.stringify(formData.favorites),
-        // avatarUrl: avatarUrl.replace(/undefined/g, '####'),
       });
       if (result.data) {
         login({

@@ -1,5 +1,5 @@
-import axios, { type AxiosResponse } from 'axios';
-import { logout } from '../services/auth';
+import { logout } from '@/services/auth';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 
 let isRefreshing = false;
