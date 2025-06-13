@@ -35,7 +35,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   onSubmit = async () => {},
   userFavorites = [],
 }) => {
-  console.log('userFavorites', userFavorites);
   const form = useForm<RegisterFormInput>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {

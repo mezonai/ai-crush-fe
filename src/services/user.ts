@@ -14,7 +14,7 @@ const checkUserExists = async (
 ): Promise<ResultResponse<CheckUserExistResponse>> => {
   return (
     await axiosHttp.get<ResultResponse<CheckUserExistResponse>>(
-      `/user/exist/${userId}`
+      `/users/exist/${userId}`
     )
   ).data;
 };

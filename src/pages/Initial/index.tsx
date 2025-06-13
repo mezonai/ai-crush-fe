@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { initAuth } from '../../services/auth';
+import { useInitGame } from '@/hooks/useInitGame';
 
 const InitPage: React.FC = () => {
-  initAuth();
+  useInitGame();
 
   return null;
 }
