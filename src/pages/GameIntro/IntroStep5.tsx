@@ -1,4 +1,4 @@
-import bonus from '../../assets/icons/bonus_icon.svg';
+import bonus from '@assets/icons/bonus_icon.svg';
 
 const PLAY_TURN_DETAIL_LIST = [
   'Tán người đầu tiên được thưởng **1 lượt chơi**',

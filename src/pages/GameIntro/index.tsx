@@ -51,7 +51,9 @@ export default function GameIntro() {
         <div className="mt-10 mb-4 flex justify-center gap-4 w-full">
           <Button
             onClick={handleNext}
-            className={'bg-pink-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-pink-700 transition'}>
+            className={
+              'bg-[#EA1870] text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-pink-700 transition w-full'
+            }>
             {stepIndex === steps.length - 1 ? 'Bắt đầu chơi' : 'Tiếp tục'}
             <img src={arrowRight} alt="Logo" className="" />
           </Button>

@@ -1,4 +1,4 @@
-import bonus from '../../assets/icons/bonus_icon.svg';
+import bonus from '@assets/icons/bonus_icon.svg';
 
 const PLAY_TURN_DETAIL_LIST = [
   'Có thể dùng token để **mua lượt** và **mở khóa nhân vật**',

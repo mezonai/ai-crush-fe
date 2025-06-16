@@ -12,6 +12,7 @@
       "@services/*": ["src/services/*"],
       "@pages/*": ["src/pages/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@assets/*": ["src/assets/*"]
     }
   }
 }

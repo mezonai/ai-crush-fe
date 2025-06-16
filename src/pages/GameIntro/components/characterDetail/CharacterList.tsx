@@ -1,24 +1,26 @@
 import CharacterCard from './CharacterCard.tsx';
-import img from '../../../../assets/example_character.jpg';
+import char_01 from '@assets/images/char_1.jpg';
+import char_02 from '@assets/images/char_2.jpg';
+import char_03 from '@assets/images/char_3.jpg';
 
 const characters = [
   {
     name: 'Linh',
-    image: img,
+    image: char_01,
     level: 'easy',
     affection: 100,
     status: 'available',
   },
   {
     name: 'Duyên',
-    image: img,
+    image: char_02,
     level: 'medium',
     affection: 30,
     status: 'chatting',
   },
   {
     name: 'My',
-    image: img,
+    image: char_03,
     level: 'hard',
     affection: 20,
     status: 'locked',

@@ -1,4 +1,4 @@
-import heart from '../../assets/icons/heart-circle.svg';
+import heart from '@assets/icons/heart-circle.svg';
 
 const PLAY_TURN_DETAIL_LIST = [
   'Người mới sẽ được tặng **5 lượt chơi miễn phí**',

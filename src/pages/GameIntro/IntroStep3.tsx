@@ -1,4 +1,4 @@
-import heart from '../../assets/icons/heart-circle.svg';
+import heart from '@assets/icons/heart-circle.svg';
 
 const HOW_TO_PLAY_LIST = [
   'Người chơi có thể lựa chọn nhân vật theo cấp độ',
