@@ -22,7 +22,6 @@ export type CreateUserRequest = {
   gender: string;
   webAppData: string;
   favorites: string;
-  description: string;
 };
 
 //===========================Betting Room===========================//
