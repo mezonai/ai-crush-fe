@@ -1,7 +1,11 @@
-import type { ReactNode } from 'react';
-import baseBg from '../assets/backgounds/base_bg.jpg';
+import React from 'react';
+import baseBg from '@assets/backgounds/base_bg.jpg';
 
-export default function BaseLayout({ children }: { children: ReactNode }) {
+interface BaseLayoutProps {
+  children: React.ReactNode;
+}
+
+const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   return (
     <div
       className="min-h-screen flex flex-col items-center font-sans bg-cover bg-center justify-between h-full"
@@ -9,4 +13,6 @@ export default function BaseLayout({ children }: { children: ReactNode }) {
       <div className="w-[90%]">{children}</div>
     </div>
   );
-}
+};
+
+export default BaseLayout;
