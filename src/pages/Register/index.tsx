@@ -51,7 +51,7 @@ const RegisterPage: React.FC = () => {
           accessToken: result.data.accessToken,
           refreshToken: result.data.refreshToken,
         });
-        navigate('/home');
+        navigate('/game-intro');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
