@@ -26,9 +26,6 @@ const processQueue = (error: unknown, token = null) => {
 
 axiosHttp.interceptors.request.use(
   (config) => {
-    if ((config as any).skipAuth) {
-      return config;
-    }
     const token = localStorage.getItem('accessToken');
     if (token) {
       config.headers = config.headers || {};
@@ -63,15 +60,8 @@ axiosHttp.interceptors.response.use(
 
       try {
         const refreshToken = localStorage.getItem('refreshToken');
-        const config = {
-          headers: {
-            Authorization: `Bearer ${refreshToken}`,
-          },
-        } as any;
-        (config as any).skipAuth = true;
-        const { data } = await axiosHttp.post('/auth/refresh-token', {}, config);
-        const newAccessToken = data.accessToken;
-        const newRefreshToken = data.refreshToken;
+        const response = await axiosHttp.post('/auth/refresh-token', { refreshToken });
+        const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data;
         localStorage.setItem('accessToken', newAccessToken);
         localStorage.setItem('refreshToken', newRefreshToken);
         axiosHttp.defaults.headers['Authorization'] = 'Bearer ' + newAccessToken;
