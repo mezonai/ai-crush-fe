@@ -59,7 +59,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               name="userName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="font-bold">
+                  <FormLabel>
                     Tên hiển thị
                     <RequiredMark />
                   </FormLabel>
@@ -80,7 +80,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               name="gender"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-0 pb-0 text-sm font-bold">
+                  <FormLabel className="mb-0 pb-0 text-sm">
                     Giới tính
                     <RequiredMark />
                   </FormLabel>
@@ -114,7 +114,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
               name="age"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="mb-0 pb-0 text-sm font-bold">
+                  <FormLabel className="mb-0 pb-0 text-sm">
                     Tuổi
                     <RequiredMark />
                   </FormLabel>
@@ -137,7 +137,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 name="favorites"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0 pb-0 text-sm font-bold">
+                    <FormLabel className="mb-0 pb-0 text-sm">
                       Sở thích
                       <RequiredMark />
                     </FormLabel>
