@@ -8,6 +8,8 @@ import InitPage from '@/pages/Initial';
 import Home from '@/pages/Home';
 import GameIntro from '@/pages/GameIntro';
 import ListCharactersPage from '@/pages/ListCharacters';
+import SubTasksPage from '@/pages/SubTasks';
+import HomeLayout from '@/layouts/HomeLayout';
 
 const Root: React.FC = () => {
   return <Outlet />;
@@ -36,16 +38,19 @@ const router = createBrowserRouter([
         element: <RegisterPage />,
       },
       {
-        path: '/home',
-        element: <Home />,
-      },
-      {
         path: '/game-intro',
         element: <GameIntro />,
       },
       {
         path: '/list-characters',
         element: <ListCharactersPage />,
+      },
+      {
+        element: <HomeLayout />,
+        children: [
+          { path: '/home', element: <Home /> },
+          { path: '/sub-tasks', element: <SubTasksPage /> },
+        ],
       },
       {
         path: '*',

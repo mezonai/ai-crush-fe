@@ -2,23 +2,26 @@ import { useState } from 'react';
 import MainNavigation from './components/MainNavigation';
 import NavHomeIcon from '@assets/icons/navigations/nav-icon-home.svg';
 import NavHeartIcon from '@assets/icons/navigations/nav-icon-heart.svg';
+import { useNavigate } from 'react-router-dom';
 
 const navigationItems = [
   {
-    id: 'Home',
+    id: 'home',
     imageUrl: NavHomeIcon,
   },
   {
-    id: 'Subtasks',
+    id: 'sub-tasks',
     imageUrl: NavHeartIcon,
   },
 ];
 
 export function Footer() {
-  const [activeItemId, setActiveItemId] = useState<string>('item1');
+  const [activeItemId, setActiveItemId] = useState<string>('home');
+  const navigate = useNavigate();
 
   const handleItemClick = (itemId: string) => {
     setActiveItemId(itemId);
+    navigate(`/${itemId}`);
   };
 
   return (
