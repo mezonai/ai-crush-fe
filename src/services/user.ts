@@ -1,3 +1,4 @@
+import type { UserDetail } from '@/types/common';
 import axiosHttp from '../config/axios';
 import type {
   GetUserFavoritesResponse,
@@ -16,7 +17,7 @@ const isUserExists = async (userId: string): Promise<boolean | undefined> => {
   try {
     const response = await checkUserExists(userId);
     return response.data?.isExist;
-  } catch (error) {
+  } catch {
     return false;
   }
 };
@@ -33,4 +34,8 @@ const createUser = async (createUserRequest: CreateUserRequest): Promise<ResultR
   return (await axiosHttp.post<ResultResponse<CreateUserResponseDto>>(`/users`, createUserRequest)).data;
 };
 
-export { getUserFavorites, createUser, isUserExists, loginMezon };
+const getUserDetail = async (): Promise<ResultResponse<UserDetail>> => {
+  return (await axiosHttp.get<ResultResponse<UserDetail>>(`/users`)).data;
+};
+
+export { getUserFavorites, createUser, isUserExists, loginMezon, getUserDetail };

@@ -26,3 +26,22 @@ export type IMezonAppUserHashInfo = {
     web_app_data: string;
   };
 };
+
+export type UserFavorite = {
+  id: number;
+  value: string;
+};
+
+export type UserDetail = {
+  age: number;
+  email: string;
+  favorites: UserFavorite[];
+  gameTurnLastUsed: string | null;
+  gameTurns: number;
+  gender: string | null;
+  id: string;
+  language: string | null;
+  tokenBalance: string;
+  userName: string;
+  avatarUrl: string;
+};

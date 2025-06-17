@@ -1,4 +1,4 @@
-import type { ISODateString, TokenBalance } from './common';
+import type { ISODateString, TokenBalance, UserFavorite } from './common';
 
 type AppError = {
   message: string;
@@ -16,10 +16,7 @@ export type CreateUserResponseDto = {
 };
 
 export type GetUserFavoritesResponse = {
-  favorites: {
-    id: number;
-    value: string;
-  }[];
+  favorites: UserFavorite[];
   email: string;
   tokenBalance: TokenBalance;
   userName: string;

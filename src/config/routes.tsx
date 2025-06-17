@@ -7,6 +7,7 @@ import ErrorPage from '@/pages/Error';
 import InitPage from '@/pages/Initial';
 import Home from '@/pages/Home';
 import GameIntro from '@/pages/GameIntro';
+import ListCharactersPage from '@/pages/ListCharacters';
 
 const Root: React.FC = () => {
   return <Outlet />;
@@ -39,12 +40,16 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '*',
-        element: <ErrorPage />,
-      },
-      {
         path: '/game-intro',
         element: <GameIntro />,
+      },
+      {
+        path: '/list-characters',
+        element: <ListCharactersPage />,
+      },
+      {
+        path: '*',
+        element: <ErrorPage />,
       },
     ],
   },
