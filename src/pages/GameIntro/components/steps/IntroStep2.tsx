@@ -1,4 +1,4 @@
-import CharacterList from './components/characterDetail/CharacterList.tsx';
+import CharacterList from '../characterDetail/CharacterList.tsx';
 
 export default function IntroStep2() {
   return (

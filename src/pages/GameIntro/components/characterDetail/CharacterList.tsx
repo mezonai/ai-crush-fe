@@ -5,6 +5,7 @@ import char_03 from '@assets/images/char_3.jpg';
 
 const characters = [
   {
+    id: 1,
     name: 'Linh',
     image: char_01,
     level: 'easy',
@@ -12,6 +13,7 @@ const characters = [
     status: 'available',
   },
   {
+    id: 2,
     name: 'Duyên',
     image: char_02,
     level: 'medium',
@@ -19,6 +21,7 @@ const characters = [
     status: 'chatting',
   },
   {
+    id: 3,
     name: 'My',
     image: char_03,
     level: 'hard',
