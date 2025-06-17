@@ -7,6 +7,8 @@ import ErrorPage from '@/pages/Error';
 import InitPage from '@/pages/Initial';
 import Home from '@/pages/Home';
 import GameIntro from '@/pages/GameIntro';
+import Characters from '@pages/Characters';
+import CharacterDetail from '@pages/CharacterDetail';
 
 const Root: React.FC = () => {
   return <Outlet />;
@@ -43,8 +45,20 @@ const router = createBrowserRouter([
         element: <ErrorPage />,
       },
       {
+        path: '/game-intro/:step',
+        element: <GameIntro />,
+      },
+      {
         path: '/game-intro',
         element: <GameIntro />,
+      },
+      {
+        path: '/characters',
+        element: <Characters />,
+      },
+      {
+        path: '/characters/:character_id',
+        element: <CharacterDetail />,
       },
     ],
   },
