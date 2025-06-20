@@ -8,9 +8,9 @@ interface BaseLayoutProps {
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children }) => {
   return (
     <div
-      className="min-h-screen flex flex-col items-center font-sans bg-cover bg-center justify-between h-full"
+      className="min-h-screen flex flex-col items-center bg-cover bg-center justify-between h-full w-full px-4"
       style={{ backgroundImage: `url(${baseBg})` }}>
-      <div className="w-[90%]">{children}</div>
+      {children}
     </div>
   );
 };

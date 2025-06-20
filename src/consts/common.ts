@@ -11,3 +11,10 @@ const TOKENS = {
 } as const;
 
 export { GENDER, TOKENS };
+
+export const GAME_MODE = {
+  SOLO: 'solo',
+  BETTING: 'betting',
+} as const;
+
+export type GameMode = (typeof GAME_MODE)[keyof typeof GAME_MODE] | null;

@@ -1,19 +1,47 @@
-import React from 'react';
-import RootLayout from '@/layouts/Root';
+import React, { useState } from 'react';
+import { GAME_MODE, type GameMode } from '@/consts/common';
+import { useNavigate } from 'react-router-dom';
+import GameModeCard from '../GameIntro/components/gameMode/GameModeCard';
+import ButtonPrimary from '@/components/MainButton';
+import SoloIcon from '@assets/icons/solo_icon.png';
+import BettingIcon from '@assets/icons/betting_icon.png';
+import arrowRight from '@/assets/icons/arrow_right.svg';
 
 const HomePage: React.FC = () => {
+  const [selectedMode, setSelectedMode] = useState<GameMode>(null);
+  const navigate = useNavigate();
+
+  const handleSelectGameMode = (mode: GameMode) => {
+    setSelectedMode(mode);
+  };
+
+  const handleContinue = () => {
+    if (!selectedMode) return;
+    navigate(`/list-characters`);
+  };
+
   return (
-    <RootLayout>
-      <div className='bg-[url("images/main-bg.png")] flex flex-col justify-center items-center w-full h-full text-black bg-white p-4'>
-        <div className="relative w-full text-center">
-          <div className="absolute left-0 top-[-200px] w-full flex justify-center">
-            <img src="/images/heart-logo.png" />
-          </div>
-          <p className="absolute top-[-70px] font-semibold text-2xl text-center w-full text-[#414651]">Home Page</p>
-          <h1 className="text-rose-primary font-bold">AI Crush</h1>
-        </div>
-      </div>
-    </RootLayout>
+    <div className="flex flex-col gap-8 w-full">
+      <h2 className="h-8 text-center font-semibold text-[24px] leading-8 text-[#8C0F3E]">Chọn chế độ chơi</h2>
+
+      <GameModeCard
+        imageSrc={SoloIcon}
+        title="Solo"
+        description="Tán solo - Không ai cản đường!"
+        selected={selectedMode === GAME_MODE.SOLO}
+        onClick={() => handleSelectGameMode(GAME_MODE.SOLO)}
+      />
+      <GameModeCard
+        imageSrc={BettingIcon}
+        title="Betting"
+        description="Cùng bạn bè cá cược xem ai tán được crush trước!"
+        selected={selectedMode === GAME_MODE.BETTING}
+        onClick={() => handleSelectGameMode(GAME_MODE.BETTING)}
+      />
+      <ButtonPrimary iconRight={arrowRight} disabled={!selectedMode} onClick={handleContinue}>
+        Tiếp tục
+      </ButtonPrimary>
+    </div>
   );
 };
 
